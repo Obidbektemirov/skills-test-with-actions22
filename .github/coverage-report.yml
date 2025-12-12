@@ -1,0 +1,26 @@
+name: Coverage Report
+
+on:
+  pull_request:
+
+jobs:
+  coverage-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-xml
+
+      - name: Comment coverage on PR
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: Coverage Report
+          message: |
+            ## 📊 Test Coverage
+            Coverage report generated from CI workflow.
+            (For detailed coverage see `coverage.xml`)
